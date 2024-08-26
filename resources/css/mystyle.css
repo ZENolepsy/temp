@@ -1,0 +1,29 @@
+/* CSS 코드 작성 */
+/* 모든 태그의 margin, padding 제거 */
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* 네이버 색깔로 글자색 지정 */
+.naver-color{
+    color: rgb(3, 199, 90);
+}
+
+/* 네이버 색깔로 배경색 지정 */
+.naver-bg{
+    background-color: rgb(3, 199, 90);
+}
+
+/* 가장 바깥 div 컨테이너에 크기 지정 후 중앙정렬 */
+.container{
+    width: 1340px;
+    margin: auto;
+}
+
+/* 내부요소 중앙정렬 삼총사 */
+.align-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

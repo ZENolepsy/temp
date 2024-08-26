@@ -1,0 +1,150 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Navigation 고정 스타일 */
+.navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Menu 고정 스타일 */
+.menu {
+    position: fixed;
+    top: 80px; /* Navigation의 높이만큼 아래로 설정 */
+    left: 0;
+    right: 0;
+    background-color: #0B70B9;
+    padding: 10px 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-around;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0 20px;
+}
+
+.dropdown-item {
+    position: absolute;
+    width: 120%;
+    padding: 10px;
+    padding-right: 10px;
+    top: 100%;
+    border: 1px solid #0B70B9;
+    border-radius: 10px;
+    background-color: white;
+    visibility: hidden;
+    opacity: 0;
+    transition-duration: 0.3s;
+}
+
+.dropdown-item a {
+    color: #0B70B9;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown:hover > .dropdown-item {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/* 여기에 추가로 필요에 따라 컨텐츠 영역 스타일을 설정할 수 있습니다 */
+.container {
+    padding: 100px 20px; /* 네비게이션과 메뉴의 높이만큼 패딩을 추가 */
+    max-width: 1340px;
+    margin: auto;
+}
+
+/* 나머지 기존 스타일은 유지 */
+.logo {
+    height: 40px;
+}
+
+.search-bar {
+    width: 500px;
+    border-radius: 60px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 4px 2px #dddddd;
+}
+
+.search {
+    width: 400px;
+    font-size: 16px;
+    border: 0;
+    outline: none;
+    border-left: 1px solid gainsboro;
+    border-right: 1px solid gainsboro;
+    padding-left: 30px;
+}
+
+.search-ico {
+    margin-left: 10px;
+    padding: 5px 12px;
+    height: 32px;
+}
+
+.search-ico:hover {
+    cursor: pointer;
+}
+
+.menu-end {
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.menu-end img {
+    width: 40px;
+    margin-left: 20px;
+}
+
+.signUp-btn, .login-btn {
+    padding: 8px 12px;
+    border-radius: 30px;
+    border: 1px solid #0B70B9;
+    color: #0B70B9;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    text-align: center;
+    font-weight: bold;
+}
+
+.signUp-btn:hover, .login-btn:hover {
+    background-color: #0B70B9;
+    color: white;
+}
+
+.signUp-btn a, .login-btn a {
+    color: inherit;
+    text-decoration: none;
+}
