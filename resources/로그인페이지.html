@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+
+    <!-- firebase 라이브러리 CDN 링크로 가져오기 -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+    <!-- firebase 개인 SDK 가져오기 -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBtMzVbESe73ShBvCfCGqeqLiuAl-WhuQw",
+            authDomain: "basic-crud-3d637.firebaseapp.com",
+            projectId: "basic-crud-3d637",
+            storageBucket: "basic-crud-3d637.appspot.com",
+            messagingSenderId: "618019847770",
+            appId: "1:618019847770:web:2f0a19bb507b34d1f36263",
+            measurementId: "G-4MNBLFPLXW"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <link rel="stylesheet" href="./resources/css/navigation.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh; /* 화면의 80%를 차지하도록 설정 */
+            padding: 20px;
+        }
+
+        .login-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px; /* 최대 너비를 400px로 설정 */
+            box-sizing: border-box;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid white;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #0B70B9;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-box button:hover {
+            background-color: #085d8a;
+        }
+
+        /* 네비게이션 고정 스타일 */
+        .navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background-color: white;
+            border-bottom: 1px solid white;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navigation .profile-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 10px;
+        }
+
+        /* Menu 고정 스타일 */
+        .menu {
+            position: fixed;
+            top: 80px; /* Navigation의 높이만큼 아래로 설정 */
+            left: 0;
+            right: 0;
+            background-color: #0B70B9;
+            padding: 10px 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0 20px;
+        }
+
+        .dropdown-item {
+            position: absolute;
+            width: 120%;
+            padding: 10px;
+            padding-right: 10px;
+            top: 100%;
+            border: 1px solid #0B70B9;
+            border-radius: 10px;
+            background-color: white;
+            visibility: hidden;
+            opacity: 0;
+            transition-duration: 0.3s;
+        }
+
+        .dropdown-item a {
+            color: #0B70B9;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown:hover > .dropdown-item {
+            display: block;
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1340px;
+            margin: auto;
+        }
+
+        .login-box-title{
+            display: flex;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            color: #0B70B9;
+            margin-bottom: 15px;
+        }
+        .dropdown-item > a:hover{
+            font-size: 105%;
+            transition-duration: 0.5s;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <!-- 네비게이션 시작 -->
+    <div class="navigation">
+        <div class="menu-start">
+            <a href="./index.html">
+                <img class="logo" src="./resources/images/ythLogo_20230104.png" alt="">
+            </a>
+        </div>
+        <div class="menu-box">
+            <div class="search-bar">
+                <input class="search" type="text" placeholder="정책명 또는 거주지역 입력" alt="">
+                <img class="search-ico" src="./resources/images/search-ico.png" alt="">
+            </div>
+        </div>
+        <div class="menu-end">
+            <div class="signUp-btn">
+                <a class="signUp-btn-a" id="navSignUp" href="./회원가입페이지.html"> 회원가입 </a>
+            </div>
+            <div class="login-btn">
+                <a class="login-btn-a" id="navLogin" href="./로그인페이지.html"> 로그인 </a>
+            </div>
+            <!-- 프로필 아이콘 추가 -->
+            <img class="profile-icon" src="./resources/images/ythMainLogo.png" alt="">
+        </div>
+        </div>
+    </div>
+    <div class="menu">
+        <div class="dropdown">
+            <a href="#">청년 정책</a>
+            <div class="dropdown-item">
+                <a href="./청년정책통합검색_페이지.html">청년정책 통합검색</a>
+                <a href="#">지자체별 HOT 청년정책</a>
+                <a href="#">언론보도</a>
+                <a href="#">연혁</a>
+                <a href="#">오시는 길</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="">청년센터</a>
+            <div class="dropdown-item">
+                <a href="">청년센터 검색</a>
+                <a href="">교육일정</a>
+            </div>
+        </div>
+        <div><a href="">청년상담실</a></div>
+        <div><a href="">청년소식</a></div>
+        <div><a href="">청년고용 지원</a></div>
+        <div><a href="">소개</a></div>
+    </div>
+
+    <div class="container">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-box-title">
+                    <p> 로 그 인</p>
+                </div>
+                <input id="inputId" type="text" placeholder="아이디">
+                <input id="inputPw" type="password" placeholder="비밀번호">
+                <button id="signInBtn">로그인</button>
+            </div>
+        </div>
+    </div>
+    <!-- 네비게이션 끝단 -->
+
+    <script>
+        const db = firebase.firestore();
+
+        document.getElementById('signInBtn').addEventListener('click', () => {
+            let v_inputId = document.getElementById('inputId').value;
+            let v_inputPw = document.getElementById('inputPw').value;
+
+            db.collection('member').doc(v_inputId).get()
+                .then((result) => {
+                    let v_data = result.data();
+
+                    if (!v_data) {
+                        alert('유효하지 않은 아이디 입니다.');
+                        return;
+                    }
+
+                    if (v_data['memPw'] === v_inputPw) {
+                        sessionStorage.setItem('login', JSON.stringify(v_data));
+                        location.replace("./index.html");
+                    } else {
+                        alert('유효하지 않은 비밀번호 입니다.');
+                    }
+                })
+                .catch((error) => {
+                    console.log('에러발생', error);
+                });
+        });
+    </script>
+
+</body>
+
+</html>
